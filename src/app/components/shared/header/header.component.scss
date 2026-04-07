@@ -1,0 +1,132 @@
+$primary: #6366f1;
+$dark: #111827;
+$gray: #4b5563;
+$white: #ffffff;
+
+.navbar {
+  background-color: rgba($white, 0.8);
+  backdrop-filter: blur(10px); // تأثير زجاجي
+  border-bottom: 1px solid #f3f4f6;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  direction: rtl;
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+
+    .logo-icon {
+      background: linear-gradient(135deg, $primary, #8b5cf6);
+      color: $white;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $dark;
+
+      span {
+        color: $primary;
+      }
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+
+    .nav-item {
+      text-decoration: none;
+      color: $gray;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      position: relative;
+
+      &:hover,
+      &.active {
+        color: $primary;
+      }
+
+      &.active::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        right: 0;
+        width: 100%;
+        height: 2px;
+        background-color: $primary;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .search-btn {
+      background: none;
+      border: none;
+      color: $gray;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: background 0.2s;
+
+      &:hover {
+        background-color: #f3f4f6;
+        color: $primary;
+      }
+    }
+
+    .login-btn {
+      background-color: $dark;
+      color: $white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+  }
+}
+
+// التوافق مع الشاشات الصغيرة
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; // يفضل استبداله بـ Side Menu في الموبايل
+  }
+}

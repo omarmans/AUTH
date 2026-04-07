@@ -1,0 +1,38 @@
+@if (auth.getToken) {
+  <header class="navbar">
+    <div class="container">
+      <div class="brand">
+        <div class="logo-icon">B</div>
+        <span class="brand-name">مدونتي <span>الرقمية</span></span>
+      </div>
+
+      <nav class="nav-links">
+        <a routerLink="/blogs" class="nav-item active">الرئيسية</a>
+        <a routerLink="/add-blog" class="nav-item active">إضافة مقالة</a>
+        <a routerLink="/change-password" class="nav-item active">
+          تغيير الباسورد</a
+        >
+      </nav>
+
+      <div class="actions">
+        <button class="search-btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+        <button class="login-btn" (click)="logOut()">خروج</button>
+      </div>
+    </div>
+  </header>
+}

@@ -1,0 +1,43 @@
+@if (showSpinner()) {
+  <app-spinner />
+}
+<div class="auth-container">
+  <div class="auth-card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <h2 class="title">{{ isLoginMode() ? "log-in" : "sign-up" }}</h2>
+
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input type="email" id="email" formControlName="email" />
+        @if (form.get("email")?.touched && form.get("email")?.invalid) {
+          <small>please enter your email</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" />
+        @if (form.get("password")?.touched && form.get("password")?.invalid) {
+          <small>please enter your password</small>
+        }
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn primary" [disabled]="form.invalid">
+          {{ isLoginMode() ? "log-in" : "sign-up" }}
+        </button>
+        <button type="button" class="btn secondary" (click)="onSwitchMode()">
+          Switch to {{ !isLoginMode() ? "log-in" : "sign-up" }}
+        </button>
+      </div>
+      <div class="actions forget">
+        <button type="button" class="btn secondary" (click)="goToForget()">
+          forget Password..?!
+        </button>
+      </div>
+    </form>
+    @if (errMsg()) {
+      <small>{{ errMsg() }}</small>
+    }
+  </div>
+</div>
