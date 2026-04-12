@@ -35,6 +35,11 @@
           forget Password..?!
         </button>
       </div>
+      <div class="actions forget">
+        <button type="button" class="btn secondary" (click)="loginWithGoogle()">
+          Continue with Google
+        </button>
+      </div>
     </form>
     @if (errMsg()) {
       <small>{{ errMsg() }}</small>

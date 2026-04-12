@@ -80,4 +80,21 @@ export class AuthComponent implements OnInit {
     }
     this.form.reset();
   }
+  loginWithGoogle() {
+    this.auth
+      .googleLogin()
+      .then((res: any) => {
+        const user = res.user;
+
+        console.log(user);
+
+        user.getIdToken().then((token: string) => {
+          this.auth.setToken(token, 3600);
+          this.router.navigate(['/change-password']);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }

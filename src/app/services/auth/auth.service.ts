@@ -4,6 +4,7 @@ import { AuthResponse } from '../../models/auth-response.model';
 import { AuthData } from '../../models/AuthData';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -114,5 +115,13 @@ export class AuthService {
       password: newPassword,
       returnSecureToken: true,
     });
+  }
+
+  //login by gmail
+  googleLogin() {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+
+    return signInWithPopup(auth, provider);
   }
 }

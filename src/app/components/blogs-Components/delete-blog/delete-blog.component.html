@@ -1,0 +1,24 @@
+<div>
+  <button (click)="deleteAllBlogs()">Delete All Blogs</button>
+</div>
+<div class="blogs-container">
+  @for (blog of blogs(); track blog.title) {
+    <article class="blog-card">
+      <div class="blog-header">
+        <span class="author">{{ blog.name }}</span>
+        <span class="date">{{ blog.date }}</span>
+      </div>
+
+      <h2 class="blog-title">{{ blog.title }}</h2>
+
+      <p class="blog-data">
+        {{ blog.data }}
+      </p>
+
+      <a class="read-more">إقرأ المزيد ←</a>
+      <button (click)="deleteBlog(blog.id!)">delete this blog</button>
+    </article>
+  } @empty {
+    <p>لا توجد مقالات حالياً.</p>
+  }
+</div>

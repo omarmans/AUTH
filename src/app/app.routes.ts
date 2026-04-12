@@ -23,6 +23,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'delete-blog',
+    loadComponent: () =>
+      import('./components/blogs-Components/delete-blog/delete-blog.component').then(
+        (m) => m.DeleteBlogComponent,
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: 'forgot-password',
     loadComponent: () =>
       import('./components/auth/forgot-password/forgot-password.component').then(
