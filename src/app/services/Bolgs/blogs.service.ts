@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Blogs } from '../../models/bolgs.interface';
 import { AuthService } from '../auth/auth.service';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -29,13 +30,13 @@ export class BlogsService {
   }
   addBlogs(blog: Blogs) {
     const token = this.auth.getToken;
-    return this.http.post<Blogs>(
-      `${this.baseUrl()}.json`,
-      blog,
-      //  {
-      //       params: new HttpParams().set('auth', token),
-      //     }
-    );
+    return this.http.post<Blogs>(`${this.baseUrl()}.json`, blog);
+  }
+
+  getBlogById(id: string): Observable<Blogs> {
+    return this.http
+      .get<Blogs>(`${this.baseUrl()}/${id}.json`)
+      .pipe(map((blog) => ({ ...blog, id })));
   }
   constructor() {}
 }

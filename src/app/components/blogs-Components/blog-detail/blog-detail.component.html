@@ -1,0 +1,28 @@
+@if (loading()) {
+  <app-spinner />
+}
+
+@if (blog(); as blog) {
+  <div class="blog-detail">
+    <div class="blog-detail__card">
+      <a class="blog-detail__back" (click)="goBack()">
+        → العودة إلى المقالات
+      </a>
+
+      <div class="blog-detail__meta">
+        <span class="blog-detail__author">✍️ {{ blog.name }}</span>
+        <span class="blog-detail__date">📅 {{ blog.date }}</span>
+      </div>
+
+      <h1 class="blog-detail__title">{{ blog.title }}</h1>
+
+      <div class="blog-detail__body">
+        {{ blog.data }}
+      </div>
+
+      <div class="blog-detail__actions">
+        <button class="btn btn--secondary" (click)="goBack()">← العودة</button>
+      </div>
+    </div>
+  </div>
+}

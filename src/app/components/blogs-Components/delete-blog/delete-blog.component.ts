@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import Swal from 'sweetalert2';
 import { BlogsService } from '../../../services/Bolgs/blogs.service';
 import { Blogs } from '../../../models/bolgs.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-delete-blog',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './delete-blog.component.html',
   styleUrl: './delete-blog.component.scss',
 })

@@ -1,10 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Blogs } from '../../../models/bolgs.interface';
 import { BlogsService } from '../../../services/Bolgs/blogs.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-blogs',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './blogs.component.html',
   styleUrl: './blogs.component.scss',
 })

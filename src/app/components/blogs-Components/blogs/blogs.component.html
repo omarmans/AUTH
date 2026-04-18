@@ -16,8 +16,7 @@
         <p class="blog-card__content">{{ blog.data }}</p>
 
         <div class="blog-card__footer">
-          <a class="btn btn--ghost btn--sm">
-            <!-- [routerLink]="['/blog', blog.id]" -->
+          <a class="btn btn--ghost btn--sm" [routerLink]="['/blog', blog.id]">
             إقرأ المزيد ←
           </a>
         </div>
