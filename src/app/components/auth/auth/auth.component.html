@@ -1,48 +1,84 @@
 @if (showSpinner()) {
   <app-spinner />
 }
-<div class="auth-container">
-  <div class="auth-card">
+
+<div class="auth-layout">
+  <div class="auth-layout__card">
+    <h2 class="auth-layout__title">
+      {{ isLoginMode() ? "تسجيل الدخول" : "إنشاء حساب" }}
+    </h2>
+    <p class="auth-layout__subtitle">
+      {{ isLoginMode() ? "مرحباً بعودتك 👋" : "انضم إلينا اليوم 🚀" }}
+    </p>
+
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <h2 class="title">{{ isLoginMode() ? "log-in" : "sign-up" }}</h2>
-
       <div class="form-group">
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" formControlName="email" />
+        <label for="email">البريد الإلكتروني</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="example@email.com"
+        />
         @if (form.get("email")?.touched && form.get("email")?.invalid) {
-          <small>please enter your email</small>
+          <div class="alert alert--error">يرجى إدخال بريد إلكتروني صحيح</div>
         }
       </div>
 
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" formControlName="password" />
+        <label for="password">كلمة المرور</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="••••••••"
+        />
         @if (form.get("password")?.touched && form.get("password")?.invalid) {
-          <small>please enter your password</small>
+          <div class="alert alert--error">يرجى إدخال كلمة المرور</div>
         }
       </div>
 
-      <div class="actions">
-        <button type="submit" class="btn primary" [disabled]="form.invalid">
-          {{ isLoginMode() ? "log-in" : "sign-up" }}
+      @if (errMsg()) {
+        <div class="alert alert--error">{{ errMsg() }}</div>
+      }
+
+      <div class="auth-layout__actions">
+        <button
+          type="submit"
+          class="btn btn--primary btn--block"
+          [disabled]="form.invalid"
+        >
+          {{ isLoginMode() ? "تسجيل الدخول" : "إنشاء حساب" }}
         </button>
-        <button type="button" class="btn secondary" (click)="onSwitchMode()">
-          Switch to {{ !isLoginMode() ? "log-in" : "sign-up" }}
+
+        <div class="auth-layout__divider">
+          <span>أو</span>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn--secondary btn--block"
+          (click)="loginWithGoogle()"
+        >
+          🔵 المتابعة مع Google
         </button>
       </div>
-      <div class="actions forget">
-        <button type="button" class="btn secondary" (click)="goToForget()">
-          forget Password..?!
+
+      <div class="auth-layout__footer">
+        <button type="button" class="btn btn--ghost" (click)="onSwitchMode()">
+          {{
+            !isLoginMode() ? "لديك حساب؟ سجل دخول" : "ليس لديك حساب؟ أنشئ واحد"
+          }}
         </button>
-      </div>
-      <div class="actions forget">
-        <button type="button" class="btn secondary" (click)="loginWithGoogle()">
-          Continue with Google
+        <br />
+        <button
+          type="button"
+          class="btn btn--ghost btn--sm"
+          (click)="goToForget()"
+        >
+          نسيت كلمة المرور؟
         </button>
       </div>
     </form>
-    @if (errMsg()) {
-      <small>{{ errMsg() }}</small>
-    }
   </div>
 </div>

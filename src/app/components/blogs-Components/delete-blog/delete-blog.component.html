@@ -1,24 +1,40 @@
-<div>
-  <button (click)="deleteAllBlogs()">Delete All Blogs</button>
-</div>
-<div class="blogs-container">
-  @for (blog of blogs(); track blog.title) {
-    <article class="blog-card">
-      <div class="blog-header">
-        <span class="author">{{ blog.name }}</span>
-        <span class="date">{{ blog.date }}</span>
-      </div>
+<div class="blogs-layout">
+  <div class="blogs-layout__header">
+    <h1>إدارة المقالات ⚙️</h1>
+  </div>
 
-      <h2 class="blog-title">{{ blog.title }}</h2>
+  <div class="blogs-layout__toolbar">
+    <button class="btn btn--danger" (click)="deleteAllBlogs()">
+      🗑️ حذف جميع المقالات
+    </button>
+  </div>
 
-      <p class="blog-data">
-        {{ blog.data }}
-      </p>
+  <div class="blogs-layout__grid">
+    @for (blog of blogs(); track blog.title) {
+      <article class="blog-card">
+        <div class="blog-card__header">
+          <span class="blog-card__author">{{ blog.name }}</span>
+          <span class="blog-card__date">{{ blog.date }}</span>
+        </div>
 
-      <a class="read-more">إقرأ المزيد ←</a>
-      <button (click)="deleteBlog(blog.id!)">delete this blog</button>
-    </article>
-  } @empty {
-    <p>لا توجد مقالات حالياً.</p>
-  }
+        <h2 class="blog-card__title">{{ blog.title }}</h2>
+        <p class="blog-card__content">{{ blog.data }}</p>
+
+        <div class="blog-card__footer">
+          <a class="btn btn--ghost btn--sm">
+            <!-- [routerLink]="['/blog', blog.id]" -->
+            إقرأ المزيد ←
+          </a>
+          <button
+            class="btn btn--danger btn--sm"
+            (click)="deleteBlog(blog.id!)"
+          >
+            🗑️ حذف
+          </button>
+        </div>
+      </article>
+    } @empty {
+      <p class="blogs-layout__empty">لا توجد مقالات حالياً 📭</p>
+    }
+  </div>
 </div>

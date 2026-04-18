@@ -1,1 +1,510 @@
 /* You can add global styles to this file, and also import other style files */
+@use "sass:color";
+
+// ==========================================
+// 🎨 VARIABLES
+// ==========================================
+$primary-color: #6366f1;
+$primary-dark: color.adjust(#6366f1, $lightness: -10%);
+$secondary-color: #6b7280;
+$error-color: #ef4444;
+$success-color: #22c55e;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$bg-color: #f3f4f6;
+$bg-gray: #f9fafb;
+$card-bg: #ffffff;
+$border-color: #e5e7eb;
+$border-radius: 12px;
+$border-radius-sm: 8px;
+$shadow-sm:
+  0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+// ==========================================
+// 🔄 RESET & BASE
+// ==========================================
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: $bg-color;
+  color: $text-dark;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+// ==========================================
+// 📦 CARD (Shared)
+// ==========================================
+.card {
+  background: $card-bg;
+  border-radius: $border-radius;
+  box-shadow: $shadow-lg;
+  padding: 2rem;
+  border: 1px solid $border-color;
+
+  &--hoverable {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// ==========================================
+// 📝 FORM ELEMENTS (Shared)
+// ==========================================
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+
+  label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: $text-dark;
+  }
+
+  input,
+  textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-sm;
+    font-size: 1rem;
+    font-family: inherit;
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s;
+    background: $card-bg;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+    }
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+}
+
+// ==========================================
+// 🔘 BUTTONS (Shared)
+// ==========================================
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // Primary Button
+  &--primary {
+    background: $primary-color;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: $primary-dark;
+      transform: translateY(-1px);
+    }
+  }
+
+  // Secondary / Outline Button
+  &--secondary {
+    background: transparent;
+    border: 1px solid $border-color;
+    color: $secondary-color;
+
+    &:hover:not(:disabled) {
+      background: $secondary-color;
+      color: #fff;
+      border-color: $secondary-color;
+    }
+  }
+
+  // Danger Button
+  &--danger {
+    background: $error-color;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: color.adjust($error-color, $lightness: -10%);
+    }
+  }
+
+  // Ghost Button (text only)
+  &--ghost {
+    background: transparent;
+    color: $primary-color;
+    padding: 0.5rem;
+
+    &:hover:not(:disabled) {
+      text-decoration: underline;
+      background: rgba($primary-color, 0.05);
+    }
+  }
+
+  // Full width
+  &--block {
+    width: 100%;
+  }
+
+  // Small size
+  &--sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+// ==========================================
+// ⚠️ ALERTS / MESSAGES (Shared)
+// ==========================================
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: $border-radius-sm;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0.75rem 0;
+
+  &--error {
+    background: rgba($error-color, 0.1);
+    color: $error-color;
+    border: 1px solid rgba($error-color, 0.2);
+  }
+
+  &--success {
+    background: rgba($success-color, 0.1);
+    color: $success-color;
+    border: 1px solid rgba($success-color, 0.2);
+  }
+}
+
+// ==========================================
+// 🔐 AUTH LAYOUT (Login, Register, Reset, Change Password)
+// ==========================================
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $bg-color;
+  padding: 1rem;
+
+  &__card {
+    @extend .card;
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subtitle {
+    text-align: center;
+    color: $text-light;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  &__divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: $border-color;
+    }
+
+    span {
+      padding: 0 1rem;
+      color: $text-light;
+      font-size: 0.85rem;
+    }
+  }
+
+  &__footer {
+    text-align: center;
+    margin-top: 1rem;
+  }
+}
+
+// ==========================================
+// 📰 BLOG CARDS GRID
+// ==========================================
+.blogs-layout {
+  padding: 2rem;
+  background: $bg-gray;
+  min-height: 100vh;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 1.75rem;
+      color: $text-dark;
+    }
+
+    p {
+      color: $text-light;
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+    direction: rtl;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    direction: rtl;
+  }
+
+  &__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: $text-light;
+    font-size: 1.1rem;
+  }
+}
+
+.blog-card {
+  @extend .card;
+  @extend .card--hoverable;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  &__author {
+    font-weight: 600;
+    color: $primary-color;
+    font-size: 0.9rem;
+  }
+
+  &__date {
+    font-size: 0.8rem;
+    color: $text-light;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  &__content {
+    color: $text-light;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    flex-grow: 1;
+
+    // Truncate after 3 lines
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid $border-color;
+  }
+}
+
+// ==========================================
+// 📝 BLOG FORM
+// ==========================================
+.blog-form-layout {
+  max-width: 650px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  &__card {
+    @extend .card;
+    padding: 2.5rem;
+    direction: rtl;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin-bottom: 0.5rem;
+  }
+
+  &__subtitle {
+    text-align: center;
+    color: $text-light;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+}
+
+// ==========================================
+// 📄 BLOG DETAIL PAGE
+// ==========================================
+.blog-detail {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  direction: rtl;
+
+  &__card {
+    @extend .card;
+    padding: 3rem;
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $primary-color;
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__author {
+    font-weight: 600;
+    color: $primary-color;
+  }
+
+  &__date {
+    color: $text-light;
+    font-size: 0.9rem;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: $text-dark;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  &__body {
+    color: $text-dark;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    white-space: pre-wrap;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $border-color;
+  }
+}
+
+// ==========================================
+// 🔄 UTILITIES
+// ==========================================
+.text-center {
+  text-align: center;
+}
+
+.mt-1 {
+  margin-top: 0.5rem;
+}
+.mt-2 {
+  margin-top: 1rem;
+}
+.mt-3 {
+  margin-top: 1.5rem;
+}
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+.mb-2 {
+  margin-bottom: 1rem;
+}
+.mb-3 {
+  margin-bottom: 1.5rem;
+}

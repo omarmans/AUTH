@@ -1,56 +1,64 @@
-<div class="form-container">
-  <div class="form-header">
-    <h2>إضافة مقال جديد 📝</h2>
-    <p>شارك أفكارك مع العالم</p>
+<div class="blog-form-layout">
+  <div class="blog-form-layout__card">
+    <h2 class="blog-form-layout__title">إضافة مقال جديد 📝</h2>
+    <p class="blog-form-layout__subtitle">شارك أفكارك مع العالم</p>
+
+    <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">اسم الكاتب</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="أدخل اسمك الكامل"
+        />
+        @if (blogForm.get("name")?.touched && blogForm.get("name")?.invalid) {
+          <div class="alert alert--error">
+            اسم الكاتب مطلوب (3 أحرف على الأقل)
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="title">عنوان المقال</label>
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          placeholder="ما هو موضوعك اليوم؟"
+        />
+        @if (blogForm.get("title")?.touched && blogForm.get("title")?.invalid) {
+          <div class="alert alert--error">العنوان مطلوب ومهم لجذب القراء</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="date">تاريخ النشر</label>
+        <input id="date" type="date" formControlName="date" />
+      </div>
+
+      <div class="form-group">
+        <label for="data">محتوى المقال</label>
+        <textarea
+          id="data"
+          formControlName="data"
+          rows="5"
+          placeholder="اكتب تفاصيل المقال هنا..."
+        ></textarea>
+        @if (blogForm.get("data")?.touched && blogForm.get("data")?.invalid) {
+          <div class="alert alert--error">
+            يجب أن يحتوي المحتوى على 10 أحرف على الأقل
+          </div>
+        }
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn--primary btn--block"
+        [disabled]="blogForm.invalid"
+      >
+        نشر المقال
+      </button>
+    </form>
   </div>
-
-  <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">اسم الكاتب</label>
-      <input
-        id="name"
-        type="text"
-        formControlName="name"
-        placeholder="أدخل اسمك الكامل"
-      />
-      @if (blogForm.get("name")?.touched && blogForm.get("name")?.invalid) {
-        <small class="error">اسم الكاتب مطلوب (3 أحرف على الأقل)</small>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="title">عنوان المقال</label>
-      <input
-        id="title"
-        type="text"
-        formControlName="title"
-        placeholder="ما هو موضوعك اليوم؟"
-      />
-      @if (blogForm.get("title")?.touched && blogForm.get("title")?.invalid) {
-        <small class="error">العنوان مطلوب ومهم لجذب القراء</small>
-      }
-    </div>
-
-    <div class="form-group">
-      <label for="date">تاريخ النشر</label>
-      <input id="date" type="date" formControlName="date" />
-    </div>
-
-    <div class="form-group">
-      <label for="data">محتوى المقال</label>
-      <textarea
-        id="data"
-        formControlName="data"
-        rows="5"
-        placeholder="اكتب تفاصيل المقال هنا..."
-      ></textarea>
-      @if (blogForm.get("data")?.touched && blogForm.get("data")?.invalid) {
-        <small class="error">يجب أن يحتوي المحتوى على 10 أحرف على الأقل</small>
-      }
-    </div>
-
-    <button type="submit" [disabled]="blogForm.invalid" class="submit-btn">
-      نشر المقال
-    </button>
-  </form>
 </div>
